@@ -11,6 +11,8 @@ add_book() {
     read title
     echo "Enter book author:"
     read author
+    echo "Enter the published year:"
+    read year
     echo "Enter book genre:"
     read genre
     echo "Enter book ISBN:"
@@ -18,7 +20,7 @@ add_book() {
 
     
     mysql -h $DB_HOST -P $DB_PORT -u$DB_USER -p$DB_PASSWORD -D $DB_NAME -e \
-    "INSERT INTO Books (title, author, genre, isbn) VALUES ('$title', '$author', '$genre', '$isbn');"
+    "INSERT INTO Books (title, author, genre, isbn) VALUES ('$title', '$author','$year', '$genre', '$isbn');"
 
     echo "Book '$title' added successfully!"
 }
