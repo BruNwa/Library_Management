@@ -22,3 +22,5 @@ chmod +x borrow_return.sh
 
 echo "alias M3lib='/usr/local/bin/startup.sh'" >> /root/.bashrc
 
+bash /usr/local/bin/startup.sh
+
