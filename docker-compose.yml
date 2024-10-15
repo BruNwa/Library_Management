@@ -10,7 +10,7 @@ services:
       MYSQL_USER: library_user                  #username for the user 
       MYSQL_PASSWORD: user          #Password for the non-root user
     volumes:
-      - ./mysql-data:/var/lib/mysql             #persist mysql9 data in a volume
+      - ./mysql_data:/var/lib/mysql             #persist mysql9 data in a volume
       - ./mysql_scripts:/docker-entrypoint-initdb.d  #run the sql script to create the init database/tables 
 
   ubuntu-app:

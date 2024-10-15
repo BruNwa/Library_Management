@@ -13,3 +13,9 @@ until mysql -h "$DB_HOST" -u"$DB_USER" -p"$DB_PASSWORD" -e "SHOW DATABASES;" > /
 done
 
 echo "MySQL is up - continuing..."
+
+chmod +x startup.sh
+chmod +x book_management.sh
+chmod +x user_management.sh
+chmod +x borrow_return.sh
+bash startup.sh
