@@ -46,6 +46,11 @@ delete_books(){
 
 }
 
+show_books(){
+   mysql -D $DB_NAME -e \
+   "select * from Books;" 
+}
+
 while true; do
     echo " ============================== "
     echo "|      Book Management Menu    |"
@@ -53,7 +58,8 @@ while true; do
     echo " | 1. Add a new book          | "
     echo " | 2. Update book availability| "
     echo " | 3. Delete a Book           | "
-    echo " | 4. Exit                    | "
+    echo " | 4. Show the Books          | "
+    echo " | 5. Exit                    | "
     echo "  ----------------------------  "
     read -p "Choose an option: " choice
 
@@ -61,7 +67,8 @@ while true; do
         1) add_book ;;
         2) update_availability ;;
         3) delete_books;;
-        4) exit 0 ;;
+        4) show_books;;
+        5) exit 0 ;;
         *) echo "Invalid option. Please try again." ;;
     esac
 done
