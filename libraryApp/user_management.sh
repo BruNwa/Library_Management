@@ -28,7 +28,7 @@ remove_user() {
 }
 
 update_user() {
-    read -p "Name of the user you want to change details? " name
+    read -p "ID of the user you want to change details? " id
     echo
     echo "Choose query options:"
     echo "1. Change Name"
@@ -40,33 +40,36 @@ update_user() {
     case $option in
         1) 
             read -p "Change Name to: " name
-            query="name = $name"
+            query="name = '$name'"
             ;;
         2)
             read -p "Change Email Address to: " email
-            query="email = $email"
+            query="email = '$email'"
             ;;
         3)
             read -p "Change Phone Number to: " phone
-            query="phone = $phone"
+            query="phone = '$phone'"
             ;;
         4) 
-            break
+            return
             ;;
         *)
             echo "Invalid option. Try again."
+            return
             ;;
-        esac
+    esac
 
     mysql -h $DB_HOST -P $DB_PORT -u $DB_USER -p$DB_PASSWORD -D $DB_NAME -e \
-    "Update Users SET $query WHERE name = '$name';"
+    "UPDATE Users SET $query WHERE user_id = '$id';"
+
+    echo "User with ID '$id' updated successfully!"
 }
 
 query_users() {
     echo "Query Users Database"
     echo "1. Query all users"
     echo "2. Selectively query users"
-    read -p "Your Chosen Option: " option
+    read -p "Your chosen option: " option
 
     case $option in 
         1) 
@@ -92,12 +95,14 @@ query_users() {
                     query="WHERE phone LIKE '%$phone%'"
                     ;;
                 *)
-                    echo "Invalid option $option"
+                    echo "Invalid option."
+                    return
                     ;;
             esac
             ;;
         *)
-            echo "Invalid option"
+            echo "Invalid option."
+            return
             ;;
     esac
 
@@ -105,15 +110,14 @@ query_users() {
     "SELECT * FROM Users $query;"
 }
 
-
 while true; do
     echo "User Management System"
     echo "1. Display Users"
     echo "2. Add a New User"
-    echo "3. Delete an User"
-    echo "4. Update an User"
+    echo "3. Delete a User"
+    echo "4. Update a User"
     echo "5. Exit"
-    read -p "Your Chosen Option: "
+    read -p "Your chosen option: " option
 
     case $option in
     1) 
@@ -132,7 +136,7 @@ while true; do
         exit 0
         ;;
     *)
-        echo "Invalid Option. Try again."
+        echo "Invalid option. Try again."
         ;;
     esac
 done
