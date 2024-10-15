@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /usr/src/app       
                    
-COPY ./libraryApp/ .  
+COPY ./libraryApp/ .
 RUN chmod +x /usr/src/app/entrypoint.sh                           
 
 ENTRYPOINT ["bash", "/usr/src/app/entrypoint.sh"]                 

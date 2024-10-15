@@ -26,5 +26,5 @@ services:
       DB_USER: library_user                     
       DB_PASSWORD: user            
     volumes:
-      - ./scripts:/usr/src/app                  
+      - ./libraryApp:/usr/src/app                  
     tty: true    # keep the conainer running interactively

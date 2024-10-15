@@ -1,5 +1,9 @@
 #!/bin/bash
-
+DB_HOST="mysql9" 
+DB_PORT="3306"
+DB_NAME="library_db"
+DB_USER="library_user"
+DB_PASSWORD="user"
 set -e
 
 echo "Waiting for MySQL to be available..."
