@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS Books (
     author VARCHAR(255) NOT NULL,
     year_published INT NOT NULL,
     genre VARCHAR(255),
-    isbn VARCHAR(13) UNIQUE,
+    isbn VARCHAR(60) UNIQUE,
     availability BOOLEAN DEFAULT TRUE
 );
 
@@ -116,7 +116,7 @@ VALUES
 ('Quiet: The Power of Introverts', 'Susan Cain', 2012, 'Self-Help', '978-0-307-35215-6',TRUE),
 ('The Subtle Art of Not Giving a F*ck', 'Mark Manson', 2016, 'Self-Help', '978-0-06-245771-4',FALSE),
 ('How to Win Friends and Influence People', 'Dale Carnegie', 1936, 'Self-Help', '978-0-671-02703-2',TRUE),
-("Man's Search for Meaning', 'Viktor E. Frankl", 1946, 'Psychology', '978-0-8070-1426-4',TRUE),
+("Man's Search for Meaning", 'Viktor E. Frankl', 1946, 'Psychology', '978-0-8070-1426-4',TRUE),
 ('The Four Agreements', 'Don Miguel Ruiz', 1997, 'Self-Help', '978-1-878424-31-0',FALSE),
 ('Grit', 'Angela Duckworth', 2016, 'Self-Help', '978-1-5011-1110-5',TRUE),
 ('Lean In', 'Sheryl Sandberg', 2013, 'Non-Fiction', '978-0-385-34994-1',FALSE),
