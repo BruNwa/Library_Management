@@ -14,8 +14,11 @@ done
 
 echo "MySQL is up - continuing..."
 
-chmod +x startup.sh
+cp startup.sh /usr/local/bin/
+chmod +x /usr/local/bin/startup.sh
 chmod +x book_management.sh
 chmod +x user_management.sh
 chmod +x borrow_return.sh
-bash startup.sh
+
+echo "alias M3lib='/usr/local/bin/startup.sh'" >> /root/.bashrc
+
