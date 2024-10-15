@@ -25,11 +25,14 @@ remove_user() {
 update_user() {
     read -p "ID of the user you want to change details? " id
     echo
-    echo "Choose query options:"
-    echo "1. Change Name"
-    echo "2. Change Email Address"
-    echo "3. Change Phone Number"
-    echo "4. Go back"
+    echo " _____________________________  "
+    echo "|     Choose query options:   |"
+    echo " -----------------------------  "
+    echo " | 1. Change Name            |"
+    echo " | 2. Change Email Address   |"
+    echo " | 3. Change Phone Number    |"
+    echo " | 4. Go back                |"
+    echo "  ---------------------------   "
     read -p "Your chosen option: " option
 
     case $option in
@@ -61,9 +64,12 @@ update_user() {
 }
 
 query_users() {
-    echo "Query Users Database"
-    echo "1. Query all users"
-    echo "2. Selectively query users"
+    echo " _____________________________  "
+    echo "|      Query Users Database   | "
+    echo " -----------------------------  "
+    echo " | 1. Query all users        |  "
+    echo " | 2. Selectively query users|  "
+    echo "  ---------------------------   "
     read -p "Your chosen option: " option
 
     case $option in 
@@ -71,9 +77,11 @@ query_users() {
             query=""
             ;;
         2) 
-            echo "1. Query Names"
-            echo "2. Query Email Addresses"
-            echo "3. Query Phone Numbers"
+            echo " -------------------------  "
+            echo "| 1. Query Names          |"
+            echo "| 2. Query Email Addresses|"
+            echo "| 3. Query Phone Numbers  |"
+            echo " -------------------------  "
             read -p "Select criteria to query: " sub_option
 
             case $sub_option in
@@ -106,12 +114,15 @@ query_users() {
 }
 
 while true; do
-    echo "User Management System"
-    echo "1. Display Users"
-    echo "2. Add a New User"
-    echo "3. Delete a User"
-    echo "4. Update a User"
-    echo "5. Exit"
+    echo " ============================== "
+    echo "|     User Management System   |"
+    echo " ============================== "
+    echo " | 1. Display Users           | "
+    echo " | 2. Add a New User          | " 
+    echo " | 3. Delete a User           | "
+    echo " | 4. Update a User           | "
+    echo " | 5. Exit                    | "
+    echo "  ----------------------------  "
     read -p "Your chosen option: " option
 
     case $option in

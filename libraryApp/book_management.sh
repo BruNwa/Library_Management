@@ -47,14 +47,14 @@ delete_books(){
 }
 
 while true; do
-    echo " =============================="
+    echo " ============================== "
     echo "|      Book Management Menu    |"
-    echo " =============================="
-    echo "| 1. Add a new book            |"
-    echo "| 2. Update book availability  |"
-    echo "| 3. Delete a Book             |"
-    echo "| 4. Exit                      |"
-    echo " ------------------------------"
+    echo " ============================== "
+    echo " | 1. Add a new book          | "
+    echo " | 2. Update book availability| "
+    echo " | 3. Delete a Book           | "
+    echo " | 4. Exit                    | "
+    echo "  ----------------------------  "
     read -p "Choose an option: " choice
 
     case $choice in

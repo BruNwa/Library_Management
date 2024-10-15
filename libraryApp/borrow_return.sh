@@ -2,9 +2,12 @@
 
 
 manage_borrow_return() {
-    echo " 1) Borrow a Book "
-    echo " 2) Return a Book "
-    echo "==========================="
+    echo " ============================== "
+    echo "|      Borrow & return Menu    |"
+    echo " ============================== "
+    echo " | 1. Borrow a Book           | "
+    echo " | 2. Return a Book           | "
+    echo "  ----------------------------  "
     echo 
     read -p "Choose an option: " option
 
