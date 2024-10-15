@@ -1,12 +1,13 @@
 #!/bin/bash
 
 
-manage_borrow_return() {
+while true; do
     echo " ============================== "
     echo "|      Borrow & return Menu    |"
     echo " ============================== "
     echo " | 1. Borrow a Book           | "
     echo " | 2. Return a Book           | "
+    echo " | 3. Exit                    | "
     echo "  ----------------------------  "
     echo 
     read -p "Choose an option: " option
@@ -39,8 +40,10 @@ manage_borrow_return() {
             "UPDATE Books SET availability=TRUE WHERE book_id=$book_id;"
             echo "Book returned successfully!"
             ;;
+        3)
+            exit 0 ;;
         *)  # Invalid Option
             echo "Invalid option. Please try again."
             ;;
     esac
-}
+done
