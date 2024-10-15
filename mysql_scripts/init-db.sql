@@ -73,7 +73,7 @@ VALUES
 ('The Kite Runner', 'Khaled Hosseini', 2003, 'Fiction', '978-1-59448-000-3',FALSE),
 ('Slaughterhouse-Five', 'Kurt Vonnegut', 1969, 'Science Fiction', '978-0-385-33384-9', TRUE),
 ('The Road', 'Cormac McCarthy', 2006, 'Post-Apocalyptic', '978-0-307-38789-9', TRUE),
-('Gone with the Wind', 'Margaret Mitchell', 1936, 'Historical Fiction', '978-0-7432-9736-3',FALSE),
+('Gone with the Wind', 'Margaret Mitchell', 1936, 'Historical Fiction', '978-0-7432-9636-3',FALSE),
 ('The Old Man and the Sea', 'Ernest Hemingway', 1952, 'Fiction', '978-0-684-80122-3', TRUE),
 ('The Adventures of Huckleberry Finn', 'Mark Twain', 1884, 'Adventure', '978-0-14-243717-9', TRUE),
 ('The Shining', 'Stephen King', 1977, 'Horror', '978-0-385-12167-5',FALSE),
