@@ -38,18 +38,30 @@ update_availability() {
     echo "Availability for book ID '$book_id' updated to '$availability'."
 }
 
+delete_books(){
+    echo "Enter book ID to update availability:"
+    read book_id
+    mysql -D $DB_NAME -e \
+    "delete from Books where book_id=$book_id;"
+
+}
 
 while true; do
-    echo "Book Management Menu"
-    echo "1. Add a new book"
-    echo "2. Update book availability"
-    echo "3. Exit"
+    echo " =============================="
+    echo "|      Book Management Menu    |"
+    echo " =============================="
+    echo "| 1. Add a new book            |"
+    echo "| 2. Update book availability  |"
+    echo "| 3. Delete a Book             |"
+    echo "| 4. Exit                      |"
+    echo " ------------------------------"
     read -p "Choose an option: " choice
 
     case $choice in
         1) add_book ;;
         2) update_availability ;;
-        3) exit 0 ;;
+        3) delete_books;;
+        4) exit 0 ;;
         *) echo "Invalid option. Please try again." ;;
     esac
 done
