@@ -8,9 +8,9 @@ while true; do
     read -p "Choose an option: " choice
 
     case $choice in
-        1) ./usr/src/app/book_management.sh ;;
-        2) ./usr/src/app/user_management.sh ;;
-        3) ./usr/src/app/borrow_return.sh ;;
+        1) bash /usr/src/app/book_management.sh ;;
+        2) bash /usr/src/app/user_management.sh ;;
+        3) bash /usr/src/app/borrow_return.sh ;;
         *) echo "Invalid option. Please try again." ;;
     esac
 done

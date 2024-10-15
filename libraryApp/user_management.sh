@@ -1,10 +1,5 @@
 #!/bin/bash
 
-DB_HOST="mysql9" 
-DB_PORT="3306"
-DB_NAME="library_db"
-DB_USER="library_user"
-DB_PASSWORD="user"
 
 
 add_user() {
@@ -12,7 +7,7 @@ add_user() {
     read -p "Enter Email Address: " email
     read -p "Enter Phone Number: " phone
 
-    mysql -h $DB_HOST -P $DB_PORT -u $DB_USER -p$DB_PASSWORD -D $DB_NAME -e \
+    mysql -D $DB_NAME -e \
     "INSERT INTO Users (name, email, phone) VALUES ('$name', '$email', '$phone');"
 
     echo "User '$name' added successfully!"
@@ -21,7 +16,7 @@ add_user() {
 remove_user() {
     read -p "Name of the user you want to remove? " name
 
-    mysql -h $DB_HOST -P $DB_PORT -u $DB_USER -p$DB_PASSWORD -D $DB_NAME -e \
+    mysql -D $DB_NAME -e \
     "DELETE FROM Users WHERE name = '$name';"
 
     echo "User '$name' deleted successfully!"
@@ -59,7 +54,7 @@ update_user() {
             ;;
     esac
 
-    mysql -h $DB_HOST -P $DB_PORT -u $DB_USER -p$DB_PASSWORD -D $DB_NAME -e \
+    mysql -D $DB_NAME -e \
     "UPDATE Users SET $query WHERE user_id = '$id';"
 
     echo "User with ID '$id' updated successfully!"
@@ -106,7 +101,7 @@ query_users() {
             ;;
     esac
 
-    mysql -h $DB_HOST -P $DB_PORT -u $DB_USER -p$DB_PASSWORD -D $DB_NAME -e \
+    mysql -D $DB_NAME -e \
     "SELECT * FROM Users $query;"
 }
 

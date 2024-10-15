@@ -1,11 +1,5 @@
 #!/bin/bash
 
-DB_HOST="mysql9" 
-DB_PORT="3306"
-DB_NAME="library_db"
-DB_USER="library_user"
-DB_PASSWORD="user"
-
 add_book() {
     echo "Enter book title:"
     read title
@@ -21,8 +15,8 @@ add_book() {
     read av
 
     
-    mysql -h $DB_HOST -P $DB_PORT -u$DB_USER -p$DB_PASSWORD -D $DB_NAME -e \
-    "INSERT INTO Books (title, author, genre, isbn, availability) VALUES ('$title', '$author','$year', '$genre', '$isbn','$av');"
+    mysql -D $DB_NAME -e \
+    "INSERT INTO Books (title, author, year_published, genre, isbn, availability) VALUES ('$title', '$author','$year', '$genre', '$isbn','$av');"
 
     echo "Book '$title' added successfully!"
 }
@@ -34,10 +28,10 @@ update_availability() {
     echo "Is the book available? (1 for Yes, 0 for No):"
     read availability
     if [[ $availability == 1 ]]; then 
-        mysql -h $DB_HOST -P $DB_PORT -u$DB_USER -p$DB_PASSWORD -D $DB_NAME -e \
+        mysql -D $DB_NAME -e \
         "UPDATE Books SET availability=TRUE WHERE book_id=$book_id;"
     elif [[ $availability == 0 ]]; then 
-        mysql -h $DB_HOST -P $DB_PORT -u$DB_USER -p$DB_PASSWORD -D $DB_NAME -e \
+        mysql -D $DB_NAME -e \
         "UPDATE Books SET availability=FALSE WHERE book_id=$book_id;"
     fi
 
