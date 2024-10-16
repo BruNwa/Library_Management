@@ -2,18 +2,21 @@
 
 while true; do
     clear
-    echo "*****************************************"
-    echo "*         📚 LIBRARY MANAGEMENT 📚      *"
-    echo "*****************************************"
-    echo "*                                       *"
-    echo "*          1. 📖 Book Management        *"
-    echo "*          2. 👥 User Management        *"
-    echo "*          3. 📅 Borrow/Return          *"
-    echo "*          4. 💸 Fines                  *"
-    echo "*                                       *"
-    echo "*****************************************"
-    echo "*   Please select an option [1-3]:      *"
-    echo "*****************************************"
+    echo "                                         *******************************************************"
+    echo "                                         *               📚 LIBRARY MANAGEMENT 📚              *"
+    echo "                                         *******************************************************"
+    echo "                                         *                                                     *"
+    echo "                                         *                1. 📖 Book Management                *"
+    echo "                                         *                2. 👥 User Management                *"
+    echo "                                         *                3. 📅 Borrow/Return                  *"
+    echo "                                         *                4. 💸 Fines                          *"
+    echo "                                         *            m3lib. 🐳 Enter the app container        *"
+    echo "                                         *         database. 🗄️ Access the database containe   *"
+    echo "                                         *             exit. 🚪 Exit the m3lib app             *"
+    echo "                                         *                                                     *"
+    echo "                                         *******************************************************"
+    echo "                                         *                Please select an option :             *"
+    echo "                                         *******************************************************"
     read -p "Choose an option: " choice
 
     case $choice in
@@ -25,6 +28,13 @@ while true; do
             ./borrow_return.sh ;;
         4) clear
             ./fine_management.sh;;
-        *) echo "Invalid option. Please try again." ;;
+        "m3lib")clear
+            bash;;
+        "database") clear
+            mysql -D $DB_Name;;
+        "exit") clear
+            exit;;
+        *) echo "Invalid option. Please try again."
+            sleep 3;;
     esac
 done

@@ -47,15 +47,15 @@ cancel_all_fines() {
 }
 
 while true; do
-    echo " ============================== "
-    echo "|      Fine Management Menu    |"
-    echo " ============================== "
-    echo " | 1. Show fines                                                     | "
-    echo " | 2. Lookup fines by user                                           | "
-    echo " | 3. Cancel a single fine                                           | "
-    echo " | 4. Cancel all fines(is it some kind of a Christmas present?       | "
-    echo " | 5. Exit                                                           | "
-    echo "  ----------------------------  "
+    echo " ===================================================================="
+    echo "|                       Fine Management Menu                         |"
+    echo " ===================================================================="
+    echo " | 1. Show fines                                                     |"
+    echo " | 2. Lookup fines by user                                           |"
+    echo " | 3. Cancel a single fine                                           |"
+    echo " | 4. Cancel all fines(is it some kind of a Christmas present?       |"
+    echo " | 5. Exit                                                           |"
+    echo "  ------------------------------------------------------------------- "
     read -p "Choose an option: " choice
 
     case $choice in
