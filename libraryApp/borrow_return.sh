@@ -2,13 +2,16 @@
 
 
 while true; do
-    echo " ============================== "
-    echo "|      Borrow & return Menu    |"
-    echo " ============================== "
-    echo " | 1. Borrow a Book           | "
-    echo " | 2. Return a Book           | "
-    echo " | 3. Exit                    | "
-    echo "  ----------------------------  "
+   echo  " ================================ "
+    echo " |      Borrow & Return Menu     |"
+    echo " ================================ "
+    echo " | 1. Borrow a Book              | "
+    echo " | 2. Return a Book              | "
+    echo " | 3. View Borrowed Books        | "
+    echo " | 4. View Available Books       | "
+    echo " | 5. View User's Borrowed Books | "
+    echo " | 6. Exit                       | "
+    echo " --------------------------------- "
     echo 
     read -p "Choose an option: " option
 
@@ -40,10 +43,34 @@ while true; do
             "UPDATE Books SET availability=TRUE WHERE book_id=$book_id;"
             echo "Book returned successfully!"
             ;;
-        3)
+        3)  # View Borrowed Books
+            echo "List of Borrowed Books:"
+            mysql -D $DB_NAME -e \
+            "SELECT Borrow_Log.borrow_id, Users.name, Books.title, Borrow_Log.borrow_date, Borrow_Log.due_date, Borrow_Log.return_date
+             FROM Borrow_Log
+             JOIN Users ON Borrow_Log.user_id = Users.user_id
+             JOIN Books ON Borrow_Log.book_id = Books.book_id
+             WHERE Borrow_Log.return_date IS NULL;"
+            ;;
+        4)  # View Available Books
+            echo "List of Available Books:"
+            mysql -D $DB_NAME -e \
+            "SELECT book_id, title FROM Books WHERE availability=TRUE;"
+            ;;
+        5)   # View User's Borrowed Books
+            read -p "Enter User ID: " user_id
+            echo "List of Borrowed Books for User ID $user_id:"
+            mysql -D $DB_NAME -e \
+            "SELECT Borrow_Log.borrow_id, Books.title, Borrow_Log.borrow_date, Borrow_Log.due_date, Borrow_Log.return_date
+             FROM Borrow_Log
+             JOIN Books ON Borrow_Log.book_id = Books.book_id
+             WHERE Borrow_Log.user_id=$user_id AND Borrow_Log.return_date IS NULL;"
+            ;;
+        6)  # Exit
             exit 0 ;;
         *)  # Invalid Option
             echo "Invalid option. Please try again."
             ;;
     esac
 done
+
