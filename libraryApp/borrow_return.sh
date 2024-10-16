@@ -40,14 +40,15 @@ while true; do
             
             #--- Overdue check ---#
             overdue_info=$(mysql -D $DB_NAME -e \
-            "SELECT DATEDIFF('$return_date', due_date) AS days_overdue, fine_amount 
-            FROM Borrow_Log BL
-            JOIN Overdue_Fines OFN ON BL.borrow_id = OFN.borrow_id
-            WHERE BL.borrow_id = $borrow_id AND BL.book_id = $book_id;")
-            days_overdue=$(echo "$overdue_info" | awk 'NR==2 {print $1}')
-	    if [[ -n $days_overdue && $days_overdue -gt 0 ]]; then
-		   echo "The book is overdue by $days_overdue days. It cannot be returned until the fine is settled."
-	    else
+    		"SELECT OFN.fine_amount 
+    		FROM Overdue_Fines OFN 
+    		JOIN Borrow_Log BL ON OFN.borrow_id = BL.borrow_id 
+    		WHERE BL.borrow_id = $borrow_id AND BL.book_id = $book_id;")
+	    fine_amount=$(echo "$overdue_info" | awk 'NR==2 {print $1}')
+		if [[ -n $fine_amount && $(echo "$fine_amount" | grep -E '^[0-9]+(\.[0-9]{1,2})?$') ]]; then
+		    echo "There is an outstanding fine of: \$${fine_amount}."
+		    echo "The book cannot be returned until the fine is settled."
+		else
             mysql -D $DB_NAME -e \
             "UPDATE Borrow_Log SET return_date='$return_date' WHERE borrow_id=$borrow_id;"
             mysql -D $DB_NAME -e \
