@@ -39,7 +39,7 @@ update_availability() {
 }
 
 delete_books(){
-    echo "Enter book ID to update availability:"
+    echo "Enter book ID for the book you want to delete"
     read book_id
     mysql -D $DB_NAME -e \
     "delete from Books where book_id=$book_id;"
