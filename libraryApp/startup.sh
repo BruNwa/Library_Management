@@ -9,6 +9,7 @@ while true; do
     echo "*          1. 📖 Book Management        *"
     echo "*          2. 👥 User Management        *"
     echo "*          3. 📅 Borrow/Return          *"
+    echo "*          4. 💸 Fines                  *"
     echo "*                                       *"
     echo "*****************************************"
     echo "*   Please select an option [1-3]:      *"
@@ -22,6 +23,8 @@ while true; do
             ./user_management.sh ;;
         3)  clear
             ./borrow_return.sh ;;
+        4) clear
+            ./fine_management.sh;;
         *) echo "Invalid option. Please try again." ;;
     esac
 done
