@@ -109,45 +109,45 @@ update_user() {
     echo
 
     if query_user_id "$id"; then
-      echo " _____________________________  "
-      echo "|     Choose query options:   |"
-      echo " -----------------------------  "
-      echo " | 1. Change Name            |"
-      echo " | 2. Change Email Address   |"
-      echo " | 3. Change Phone Number    |"
-      echo " | 4. Go back                |"
-      echo "  ---------------------------   "
-      read -p "Your chosen option: " option
+        echo " _____________________________  "
+        echo "|     Choose query options:   |"
+        echo " -----------------------------  "
+        echo " | 1. Change Name            |"
+        echo " | 2. Change Email Address   |"
+        echo " | 3. Change Phone Number    |"
+        echo " | 4. Go back                |"
+        echo "  ---------------------------   "
+        read -p "Your chosen option: " option
 
-      case $option in
-          1) 
-              first_name=$(input_name " New" "First")
-              last_name=$(input_name " New" "Last")
+        case $option in
+            1) 
+                first_name=$(input_name " New" "First")
+                last_name=$(input_name " New" "Last")
 
-              query="first_name = '$first_name', last_name = '$last_name'"
-              ;;
-          2)
-              email=$(input_email "")
-              query="email = '$email'"
-              ;;
-          3)
-              phone=$(input_phone " New")
-              query="phone = '$phone'"
-              ;;
-          4) 
-              return
-              ;;
-          *)
-              echo "Invalid option. Try again."
-              return
-              ;;
-      esac
+                query="first_name = '$first_name', last_name = '$last_name'"
+                ;;
+            2)
+                email=$(input_email "")
+                query="email = '$email'"
+                ;;
+            3)
+                phone=$(input_phone " New")
+                query="phone = '$phone'"
+                ;;
+            4) 
+                return
+                ;;
+            *)
+                echo "Invalid option. Try again."
+                return
+                ;;
+        esac
 
-      mysql -D $DB_NAME -e \
-      "UPDATE Users SET $query WHERE user_id = '$id';"
+        mysql -D $DB_NAME -e \
+        "UPDATE Users SET $query WHERE user_id = '$id';"
 
-      echo "User with ID '$id' updated successfully!"
-      
+        echo "User with ID '$id' updated successfully!"
+        
     else
         echo "User with ID '$id' cannot be changed because they do not exist."
     fi
