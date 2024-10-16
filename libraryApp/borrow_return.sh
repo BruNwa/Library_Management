@@ -37,11 +37,23 @@ while true; do
             read -p "Enter Borrow ID: " borrow_id
             read -p "Enter Book ID: " book_id
             return_date=$(date +%Y-%m-%d)
+            
+            #--- Overdue check ---#
+            overdue_info=$(mysql -D $DB_NAME -e \
+            "SELECT DATEDIFF('$return_date', due_date) AS days_overdue, fine_amount 
+            FROM Borrow_Log BL
+            JOIN Overdue_Fines OFN ON BL.borrow_id = OFN.borrow_id
+            WHERE BL.borrow_id = $borrow_id AND BL.book_id = $book_id;")
+            days_overdue=$(echo "$overdue_info" | awk 'NR==2 {print $1}')
+	    if [[ -n $days_overdue && $days_overdue -gt 0 ]]; then
+		   echo "The book is overdue by $days_overdue days. It cannot be returned until the fine is settled."
+	    else
             mysql -D $DB_NAME -e \
             "UPDATE Borrow_Log SET return_date='$return_date' WHERE borrow_id=$borrow_id;"
             mysql -D $DB_NAME -e \
             "UPDATE Books SET availability=TRUE WHERE book_id=$book_id;"
             echo "Book returned successfully!"
+            fi
             ;;
         3)  # View Borrowed Books
             echo "List of Borrowed Books:"
