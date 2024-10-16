@@ -84,8 +84,8 @@ add_user() {
     email=$(input_email "")
     phone=$(input_phone)
 
-    mysql -h $DB_HOST -P $DB_PORT -u $DB_USER -p$DB_PASSWORD -D $DB_NAME -e \
-    "INSERT INTO Users (first_name, last_name, email, phone) VALUES ('$first_name', '$last_name', '$email', '$phone');"
+    mysql -D $DB_NAME -e \
+    "INSERT INTO Users (name, email, phone) VALUES ('$first_name', '$last_name', '$email', '$phone');"
 
     echo "User $first_name $last_name added successfully!"
 }
@@ -93,8 +93,9 @@ add_user() {
 remove_user() {
     read -p "ID of the user you want to remove? " id
 
+
     if query_user_id "$id"; then
-        mysql -h $DB_HOST -P $DB_PORT -u $DB_USER -p"$DB_PASSWORD" -D "$DB_NAME" -e \
+        mysql -D $DB_NAME -e \
         "DELETE FROM Users WHERE user_id = '$id';"
 
         echo "User with ID '$id' deleted successfully!"
@@ -106,51 +107,59 @@ remove_user() {
 update_user() {
     read -p "ID of the user you want to change details? " id
     echo
+
     if query_user_id "$id"; then
-        echo "Choose query options:"
-        echo "1. Change Name"
-        echo "2. Change Email Address"
-        echo "3. Change Phone Number"
-        echo "4. Go back"
-        read -p "Your chosen option: " option
+      echo " _____________________________  "
+      echo "|     Choose query options:   |"
+      echo " -----------------------------  "
+      echo " | 1. Change Name            |"
+      echo " | 2. Change Email Address   |"
+      echo " | 3. Change Phone Number    |"
+      echo " | 4. Go back                |"
+      echo "  ---------------------------   "
+      read -p "Your chosen option: " option
 
-        case $option in
-            1) 
-                first_name=$(input_name " New" "First")
-                last_name=$(input_name " New" "Last")
+      case $option in
+          1) 
+              first_name=$(input_name " New" "First")
+              last_name=$(input_name " New" "Last")
 
-                query="first_name = '$first_name', last_name = '$last_name'"
-                ;;
-            2)
-                email=$(input_email "")
-                query="email = '$email'"
-                ;;
-            3)
-                phone=$(input_phone " New")
-                query="phone = '$phone'"
-                ;;
-            4) 
-                return
-                ;;
-            *)
-                echo "Invalid option. Try again."
-                return
-                ;;
-        esac
+              query="first_name = '$first_name', last_name = '$last_name'"
+              ;;
+          2)
+              email=$(input_email "")
+              query="email = '$email'"
+              ;;
+          3)
+              phone=$(input_phone " New")
+              query="phone = '$phone'"
+              ;;
+          4) 
+              return
+              ;;
+          *)
+              echo "Invalid option. Try again."
+              return
+              ;;
+      esac
 
-        mysql -h $DB_HOST -P $DB_PORT -u $DB_USER -p$DB_PASSWORD -D $DB_NAME -e \
-        "UPDATE Users SET $query WHERE user_id = '$id';"
+      mysql -D $DB_NAME -e \
+      "UPDATE Users SET $query WHERE user_id = '$id';"
 
-        echo "User with ID '$id' updated successfully!"
+      echo "User with ID '$id' updated successfully!"
+      
     else
         echo "User with ID '$id' cannot be changed because they do not exist."
     fi
 }
 
 query_users() {
-    echo "Query Users Database"
-    echo "1. Query all users"
-    echo "2. Selectively query users"
+    echo " _____________________________  "
+    echo "|      Query Users Database   | "
+    echo " -----------------------------  "
+    echo " | 1. Query all users        |  "
+    echo " | 2. Selectively query users|  "
+    echo "  ---------------------------   "
     read -p "Your chosen option: " option
 
     case $option in 
@@ -158,10 +167,14 @@ query_users() {
             query=""
             ;;
         2) 
-            echo "1. Query an ID"
-            echo "2. Query Names"
-            echo "3. Query Email Addresses"
-            echo "4. Query Phone Numbers"
+
+            echo " -------------------------  "
+            echo "| 1. Query IDs            |"
+            echo "| 2. Query Names          |"
+            echo "| 3. Query Email Addresses|"
+            echo "| 3. Query Phone Numbers  |"
+            echo " -------------------------  "
+
             read -p "Select criteria to query: " sub_option
 
             case $sub_option in
@@ -193,17 +206,20 @@ query_users() {
             ;;
     esac
 
-    mysql -h $DB_HOST -P $DB_PORT -u $DB_USER -p$DB_PASSWORD -D $DB_NAME -e \
+    mysql -D $DB_NAME -e \
     "SELECT * FROM Users $query;"
 }
 
 while true; do
-    echo "User Management System"
-    echo "1. Display Users"
-    echo "2. Add a New User"
-    echo "3. Delete a User"
-    echo "4. Update a User"
-    echo "5. Exit"
+    echo " ============================== "
+    echo "|     User Management System   |"
+    echo " ============================== "
+    echo " | 1. Display Users           | "
+    echo " | 2. Add a New User          | " 
+    echo " | 3. Delete a User           | "
+    echo " | 4. Update a User           | "
+    echo " | 5. Exit                    | "
+    echo "  ----------------------------  "
     read -p "Your chosen option: " option
 
     case $option in
