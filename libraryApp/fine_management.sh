@@ -10,6 +10,8 @@ mysql -D $DB_NAME -e \
     WHERE return_date IS NULL
       AND due_date < '$TODAY'
       AND borrow_id NOT IN (SELECT borrow_id FROM Overdue_Fines);"
+show_report()
+{
 echo "Fine Management Report:"
 mysql -D $DB_NAME -e \
     "SELECT COUNT(*) AS total_fines FROM Overdue_Fines;
@@ -21,4 +23,21 @@ mysql -D $DB_NAME -e \
     JOIN Users U ON L.user_id = U.user_id
     JOIN Books B ON L.book_id = B.book_id
     LIMIT 5;"
+}
 
+while true; do
+    echo " ============================== "
+    echo "|      Fine Management Menu    |"
+    echo " ============================== "
+    echo " | 1. Show fines              | "
+    echo " | 5. Exit                    | "
+    echo "  ----------------------------  "
+    read -p "Choose an option: " choice
+
+    case $choice in
+        1) show_report ;;
+        5) exit 0 ;;
+        *) echo "Invalid option. Please try again." ;;
+    esac
+
+done
