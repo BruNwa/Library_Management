@@ -7,19 +7,19 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root      
       MYSQL_DATABASE: library_db               
-      MYSQL_USER: library_user                  #username for the user 
-      MYSQL_PASSWORD: user          #Password for the non-root user
+      MYSQL_USER: library_user                                 #username for the user 
+      MYSQL_PASSWORD: user                                     #Password for the non-root user
     volumes:
-      - ./mysql_data:/var/lib/mysql             #persist mysql9 data in a volume
-      - ./mysql_scripts:/docker-entrypoint-initdb.d  #run the sql script to create the init database/tables 
+      - ./mysql_data:/var/lib/mysql                            #persist mysql9 data in a volume
+      - ./mysql_scripts:/docker-entrypoint-initdb.d            #run the sql script to create the init database/tables 
 
   ubuntu-app:
     container_name: appContainer
     build:
       context: .
-      dockerfile: Dockerfile                    # the ubuntu build gonna be made from the ./Dockerfile
+      dockerfile: Dockerfile                                     # the ubuntu build gonna be made from the ./Dockerfile
     depends_on:
-      - mysql9                                   # if the mysql container running correctly only then proceed for the second container 
+      - mysql9                                                  # if the mysql container running correctly only then proceed for the second container 
     environment:
       DB_HOST: mysql9                            
       DB_PORT: 3306                             
@@ -30,4 +30,4 @@ services:
       APP_PASSWORD: root          
     volumes:
       - ./libraryApp:/usr/src/app                  
-    tty: true    # keep the conainer running interactively
+    tty: true                                                    # keep the conainer running interactively

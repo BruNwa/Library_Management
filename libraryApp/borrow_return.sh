@@ -43,24 +43,25 @@ while true; do
             read -p "Enter Book ID: " book_id
             return_date=$(date +%Y-%m-%d)
 
-            
-            #--- Overdue check ---#
-            overdue_info=$(mysql -D $DB_NAME -e \
+            # Debugging output
+            echo "Returning book with Borrow ID: $borrow_id and Book ID: $book_id"
 
-    		"SELECT OFN.fine_amount 
-    		FROM Overdue_Fines OFN 
-    		JOIN Borrow_Log BL ON OFN.borrow_id = BL.borrow_id 
-    		WHERE BL.borrow_id = $borrow_id AND BL.book_id = $book_id;")
-	    fine_amount=$(echo "$overdue_info" | awk 'NR==2 {print $1}')
-		if [[ -n $fine_amount && $(echo "$fine_amount" | grep -E '^[0-9]+(\.[0-9]{1,2})?$') ]]; then
-		    echo "There is an outstanding fine of: \$${fine_amount}."
-		    echo "The book cannot be returned until the fine is settled."
-		else
-            mysql -D $DB_NAME -e \
-            "UPDATE Borrow_Log SET return_date='$return_date' WHERE borrow_id=$borrow_id;"
-            mysql -D $DB_NAME -e \
-            "UPDATE Books SET availability=TRUE WHERE book_id=$book_id;"
-            echo "Book returned successfully!"
+            # Update the return_date field in Borrow_Log
+            mysql -D $DB_NAME -e "UPDATE Borrow_Log SET return_date='$return_date' WHERE borrow_id=$borrow_id AND book_id=$book_id;"
+
+            # Check if the update was successful
+            if [ $? -eq 0 ]; then
+                rows_updated=$(mysql -D $DB_NAME -sse "SELECT ROW_COUNT();")
+
+                if [ "$rows_updated" -eq 0 ]; then
+                    echo "No records were updated. Please check if the Borrow ID and Book ID match."
+                else
+                    # Set the book as available again
+                    mysql -D $DB_NAME -e "UPDATE Books SET availability=TRUE WHERE book_id=$book_id;"
+                    echo "Return date updated successfully to $return_date. Book returned successfully!"
+                fi
+            else
+                echo "Failed to update the return date. Please check the SQL query."
             fi
             ;;
 
