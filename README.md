@@ -101,27 +101,36 @@ Below is the database structure for the Library Management System:
 
 
 ### Contributors:
-<table>
- <td align="center">
-      <a href="https://github.com/BruNwa">
-        <img src="https://avatars.githubusercontent.com/u/106646716?v=4" width="100px;" alt="Zaim Anwar"/><br />
-        <sub><b>Zaim Anwar</b></sub>
-    </td>
-  <tr>
-    <td align="center">
-      <a href="https://github.com/leonkam">
-        <img src="https://avatars.githubusercontent.com/u/56262178?v=4" width="100px;" alt="Leonkam"/><br />
-        <sub><b>Leonkam</b></sub>
-    </td>
-    <td align="center">
-      <a href="https://github.com/Vikiyuk">
-        <img src="https://avatars.githubusercontent.com/u/83815878?v=4" width="100px;" alt="Yurii Maisuradze"/><br />
-        <sub><b>Yurii Maisuradze</b></sub>
-    </td>
-    <td align="center">
-      <a href="https://github.com/Ahmad-Fakhouri">
-        <img src="https://avatars.githubusercontent.com/u/116568413?v=4" width="100px;" alt="Ahmad Fakhouri"/><br />
-        <sub><b>Ahmad Fakhouri</b></sub>
-    </td>
-  </tr>
-</table>
+
+<div align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <a href="https://github.com/BruNwa">
+          <img src="https://avatars.githubusercontent.com/u/106646716?v=4" width="100px;" alt="Zaim Anwar"/><br />
+          <sub><b>Zaim Anwar</b></sub>
+        </a>
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <a href="https://github.com/leonkam">
+          <img src="https://avatars.githubusercontent.com/u/56262178?v=4" width="100px;" alt="Leonkam"/><br />
+          <sub><b>Leonkam</b></sub>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://github.com/Vikiyuk">
+          <img src="https://avatars.githubusercontent.com/u/83815878?v=4" width="100px;" alt="Yurii Maisuradze"/><br />
+          <sub><b>Yurii Maisuradze</b></sub>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://github.com/Ahmad-Fakhouri">
+          <img src="https://avatars.githubusercontent.com/u/116568413?v=4" width="100px;" alt="Ahmad Fakhouri"/><br />
+          <sub><b>Ahmad Fakhouri</b></sub>
+        </a>
+      </td>
+    </tr>
+  </table>
+</div>
