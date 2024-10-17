@@ -48,7 +48,7 @@ while true; do
             
             #--- Overdue check ---#
             overdue_info=$(mysql -D $DB_NAME -e \
-<<<<<<< HEAD
+
     		"SELECT OFN.fine_amount 
     		FROM Overdue_Fines OFN 
     		JOIN Borrow_Log BL ON OFN.borrow_id = BL.borrow_id 
@@ -63,22 +63,6 @@ while true; do
             mysql -D $DB_NAME -e \
             "UPDATE Books SET availability=TRUE WHERE book_id=$book_id;"
             echo "Book returned successfully!"
-=======
-            "SELECT OFN.fine_amount 
-            FROM Overdue_Fines OFN 
-            JOIN Borrow_Log BL ON OFN.borrow_id = BL.borrow_id 
-            WHERE BL.borrow_id = $borrow_id AND BL.book_id = $book_id;")
-            fine_amount=$(echo "$overdue_info" | awk 'NR==2 {print $1}')
-            if [[ -n $fine_amount && $(echo "$fine_amount" | grep -E '^[0-9]+(\.[0-9]{1,2})?$') ]]; then
-                echo "There is an outstanding fine of: \$${fine_amount}."
-                echo "The book cannot be returned until the fine is settled."
-            else
-                mysql -D $DB_NAME -e \
-                "UPDATE Borrow_Log SET return_date='$return_date' WHERE borrow_id=$borrow_id;"
-                mysql -D $DB_NAME -e \
-                "UPDATE Books SET availability=TRUE WHERE book_id=$book_id;"
-                echo "Book returned successfully!"
->>>>>>> bcde4763ecca315a4bc861ca34d3b4b67a92b77e
             fi
             ;;
         3)  # View Borrowed Books
