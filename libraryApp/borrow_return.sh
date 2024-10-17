@@ -68,7 +68,7 @@ while true; do
         3)  # View Borrowed Books
             echo "List of Borrowed Books:"
             mysql -D $DB_NAME -e \
-            "SELECT Borrow_Log.borrow_id, Users.name, Books.title, Borrow_Log.borrow_date, Borrow_Log.due_date, Borrow_Log.return_date
+            "SELECT Borrow_Log.borrow_id, Users.first_name, Users.last_name, Books.title, Borrow_Log.borrow_date, Borrow_Log.due_date, Borrow_Log.return_date
              FROM Borrow_Log
              JOIN Users ON Borrow_Log.user_id = Users.user_id
              JOIN Books ON Borrow_Log.book_id = Books.book_id
