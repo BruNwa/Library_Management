@@ -29,9 +29,27 @@ while true; do
         4) clear
             ./fine_management.sh;;
         "m3lib")clear
-            bash;;
+                read -p "Enter the App Password: " -s pwd_app
+                if [[ "$pwd_app" == "$APP_PASSWORD" ]]; then
+                        clear
+                        bash
+                else
+                        clear
+                        echo "Wrong Password!"
+                        sleep 1
+                        exit
+                fi;;
         "database") clear
-            mysql -D $DB_NAME;;
+                read -p "Enter the Password: " -s pwd_sql
+                if [[ "$pwd_sql" == "$SQL_PWD" ]]; then
+                        clear
+                        mysql -D $DB_NAME
+                else
+                        clear
+                        echo "Wrong Password!"
+                        sleep 1
+                        exit
+                fi;;
         "exit") clear
             exit;;
         *) echo "Invalid option. Please try again."
