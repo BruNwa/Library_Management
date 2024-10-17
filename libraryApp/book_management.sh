@@ -18,7 +18,7 @@ add_book() {
     mysql -D $DB_NAME -e \
     "INSERT INTO Books (title, author, year_published, genre, isbn, availability) VALUES ('$title', '$author','$year', '$genre', '$isbn','$av');"
 
-    echo "Book '$title' added successfully!"
+    echo -e "\e[32mBook '$title' added successfully!\e[0m"
 }
 
 
@@ -35,20 +35,27 @@ update_availability() {
         "UPDATE Books SET availability=FALSE WHERE book_id=$book_id;"
     fi
 
-    echo "Availability for book ID '$book_id' updated to '$availability'."
+    echo -e "\e[32mAvailability for book ID '$book_id' updated to '$availability'.\e[0m"
 }
 
 delete_books(){
-    echo "Enter book ID to update availability:"
+    echo "Enter book ID for the book you want to delete"
     read book_id
     mysql -D $DB_NAME -e \
     "delete from Books where book_id=$book_id;"
+    echo -e "\e[32mThe book $book_id is deleted.\e[0m"
 
 }
 
 show_books(){
    mysql -D $DB_NAME -e \
    "select * from Books;" 
+}
+
+inventory_track(){
+    mysql -D $DB_NAME -e \
+    "select count(*) Inventory from Books;"
+
 }
 
 while true; do
@@ -59,16 +66,31 @@ while true; do
     echo " | 2. Update book availability| "
     echo " | 3. Delete a Book           | "
     echo " | 4. Show the Books          | "
-    echo " | 5. Exit                    | "
+    echo " | 5. Show the Books inventory| "
+    echo " | 6. Exit                    | "
     echo "  ----------------------------  "
     read -p "Choose an option: " choice
 
     case $choice in
-        1) add_book ;;
-        2) update_availability ;;
-        3) delete_books;;
-        4) show_books;;
-        5) exit 0 ;;
-        *) echo "Invalid option. Please try again." ;;
+        1) add_book
+        printf '%.0s*' {1..40}
+        echo;;
+        2) update_availability
+        printf '%.0s*' {1..50}
+        echo;;
+        3) delete_books
+        printf '%.0s*' {1..40}
+        echo;;
+        4) show_books
+        printf '%.0s*' {1..100}
+        echo;;
+        5) inventory_track
+        printf '%.0s*' {1..30}
+        echo;;
+        6) clear
+        echo -e "\e[45mThanks for visiting! See you next time for more great reads!\e[0m"
+        sleep 2
+        exit;;
+        *) echo -e "\e[31mInvalid option. Please try again.\e[0m" ;;
     esac
 done

@@ -228,3 +228,10 @@ VALUES
 ('Teodoro', 'Waddie', 'twaddie2p@who.int', '2472766693'),
 ('Merrill', 'Ioan', 'mioan2q@imdb.com', '8347886565'),
 ('Hugh', 'Rowbottom', 'hrowbottom2r@issuu.com', '5374196023');
+
+INSERT INTO Borrow_Log (book_id, user_id, borrow_date, due_date, return_date) VALUES
+(2, 1, '2024-09-01', '2024-09-15', NULL), -- Overdue
+(5, 2, '2024-09-10', '2024-09-25', NULL), -- Overdue
+(8, 3, '2024-09-20', '2024-10-05', NULL), -- Overdue
+(12, 4, '2024-10-01', '2024-10-15', NULL), -- Not overdue
+(20, 5, '2024-10-05', '2024-10-20', NULL); -- Not overdue

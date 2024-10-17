@@ -19,13 +19,15 @@ services:
       context: .
       dockerfile: Dockerfile                    # the ubuntu build gonna be made from the ./Dockerfile
     depends_on:
-      - mysql9                                   # if the mysql container if its running correctly only then run the proceed for the second container 
+      - mysql9                                   # if the mysql container running correctly only then proceed for the second container 
     environment:
       DB_HOST: mysql9                            
       DB_PORT: 3306                             
       DB_NAME: library_db                       
       DB_USER: library_user                     
-      DB_PASSWORD: user            
+      DB_PASSWORD: user  
+      SQL_PWD: root
+      APP_PASSWORD: root          
     volumes:
       - ./libraryApp:/usr/src/app                  
     tty: true    # keep the conainer running interactively

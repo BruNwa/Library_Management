@@ -27,6 +27,7 @@ chmod +x startup.sh
 chmod +x book_management.sh
 chmod +x user_management.sh
 chmod +x borrow_return.sh
+chmod +x fine_management.sh
 
 bash startup.sh
 
