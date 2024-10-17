@@ -1,7 +1,7 @@
 #!/bin/bash
 
 validate_name() {
-    if [[ "$1" =~ [a-zA-z]+$ ]]; then
+    if [[ "$1" =~ ^[a-zA-z]+$ ]]; then
         return 0
     else
         return 1
@@ -34,8 +34,6 @@ input_name() {
         if validate_name "$name"; then
             echo $(title_case "$name")
             break
-        # else
-        #     echo "Invalid $2 Name. Please enter only letters."
         fi
     done
 }
@@ -46,8 +44,6 @@ input_email() {
         if validate_email "$email"; then
             echo "$email"
             break
-        # else
-        #     echo "Invalid Email Address. Please Try Again."
         fi
     done
 }
@@ -58,26 +54,28 @@ input_phone() {
         if validate_phone "$phone"; then
             echo "$phone"
             break
-        # else
-        #     echo "Invalid Phone Number. Please Try Again."
         fi
     done
 }
 
 query_user_id() {
-    res=$(mysql -D $DB_NAME -e \
+    count=$(mysql -D $DB_NAME -e \
     "SELECT * FROM Users WHERE user_id = $1;")
 
-    if [[ -z "$res" ]]; then
-        echo "No user found with ID: $1"
+    echo $count
+
+    if [[ -z count ]]; then
+        echo "No User found with ID: $1"
         return 1 
     else
-        echo "$res" 
+        mysql -D $DB_NAME -e \
+        "SELECT * FROM Users WHERE user_id = $1 LIMIT 1;"
         return 0 
     fi
 }
 
 add_user() {
+    echo "Create a new User:"
     first_name=$(input_name "" "First")
     echo
     last_name=$(input_name "" "Last")
@@ -97,7 +95,6 @@ add_user() {
 remove_user() {
     read -p "ID of the user you want to remove? " id
 
-
     if query_user_id "$id"; then
         mysql -D $DB_NAME -e \
         "DELETE FROM Users WHERE user_id = '$id';"
@@ -113,9 +110,9 @@ update_user() {
     echo
 
     if query_user_id "$id"; then
-        echo " ____________________________  "
-        echo "|  Choose Detail to Change:  |"
-        echo " -----------------------------  "
+        echo "  ___________________________  "
+        echo " |  Choose Detail to Change: |"
+        echo "  ---------------------------  "
         echo " | 1. Change Name            |"
         echo " | 2. Change Email Address   |"
         echo " | 3. Change Phone Number    |"
@@ -165,6 +162,7 @@ query_users() {
     echo "|  2. Selectively query users  |  "
     echo " ------------------------------   "
     read -p "Your chosen option: " option
+    clear
 
     case $option in 
         1) 
@@ -181,6 +179,7 @@ query_users() {
             echo " ----------------------------- "
 
             read -p "Select criteria to query: " sub_option
+            clear
 
             case $sub_option in
                 1)
@@ -221,6 +220,8 @@ query_users() {
     GROUP BY U.user_id, U.first_name, U.last_name, U.email, U.phone;"
 
     mysql -D $DB_NAME -e "$sql_query"
+    read -p "" pass
+    clear
 
 }
 
@@ -235,6 +236,7 @@ while true; do
     echo "|  5. Exit                     | "
     echo " ------------------------------  "
     read -p "Your chosen option: " option
+    clear
 
     case $option in
     1) 
