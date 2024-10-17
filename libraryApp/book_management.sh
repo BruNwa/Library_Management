@@ -51,6 +51,12 @@ show_books(){
    "select * from Books;" 
 }
 
+inventory_track(){
+    mysql -D $DB_NAME -e \
+    "select count(*) Inventory from Books;"
+
+}
+
 while true; do
     echo " ============================== "
     echo "|      Book Management Menu    |"
@@ -59,16 +65,18 @@ while true; do
     echo " | 2. Update book availability| "
     echo " | 3. Delete a Book           | "
     echo " | 4. Show the Books          | "
-    echo " | 5. Exit                    | "
+    echo " | 5. Show the Books inventory| "
+    echo " | 6. Exit                    | "
     echo "  ----------------------------  "
     read -p "Choose an option: " choice
 
     case $choice in
-        1) add_book ;;
-        2) update_availability ;;
+        1) add_book;;
+        2) update_availability;;
         3) delete_books;;
         4) show_books;;
-        5) exit 0 ;;
+        5) inventory_track;;
+        6) exit 0 ;;
         *) echo "Invalid option. Please try again." ;;
     esac
 done
