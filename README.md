@@ -76,7 +76,7 @@ The application will be running in the container named `appContainer`.
 │   └── fine_management.sh
 └── mysql_scripts/
     └── init-db.sql
-
+```
 
 ## 🚀 Usage
 
@@ -90,7 +90,7 @@ To interact with the app:
 
 **Enter the app container (m3lib):**
    ```bash
-   docker exec -it appContainer m3lib
+   docker exec -it appContainer m3lib ```
 
 ## 🗂️ Database Structure
 
