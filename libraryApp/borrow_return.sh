@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 while true; do
    echo  " ================================ "
     echo " |      Borrow & Return Menu     |"
@@ -23,12 +22,21 @@ while true; do
             "SELECT availability FROM Books WHERE book_id=$book_id;")
             if [ "$availability" = "1" ]; then
                 borrow_date=$(date +%Y-%m-%d)
-                due_date=$(date -d "$borrow_date + 14 days" +%Y-%m-%d)
-                mysql -D $DB_NAME -e \
-                "INSERT INTO Borrow_Log (book_id, user_id, borrow_date, due_date) VALUES ($book_id, $user_id, '$borrow_date', '$due_date');"
-                mysql -D $DB_NAME -e \
-                "UPDATE Books SET availability=FALSE WHERE book_id=$book_id;"
-                echo "Book borrowed successfully!"
+                read -p "Enter Return Date (YYYY-MM-DD) or press Enter to set it 14 days from today: " due_date
+                # If no due date is entered, set to 14 days from today
+                if [ -z "$due_date" ]; then
+                    due_date=$(date -d "$borrow_date + 14 days" +%Y-%m-%d)
+                fi
+                # Validate the due date format (optional, simple check for length)
+                if [[ "$due_date" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
+                    mysql -D $DB_NAME -e \
+                    "INSERT INTO Borrow_Log (book_id, user_id, borrow_date, due_date) VALUES ($book_id, $user_id, '$borrow_date', '$due_date');"
+                    mysql -D $DB_NAME -e \
+                    "UPDATE Books SET availability=FALSE WHERE book_id=$book_id;"
+                    echo "Book borrowed successfully! Due date is $due_date."
+                else
+                    echo "Invalid date format. Please enter the date in YYYY-MM-DD format."
+                fi
             else
                 echo "Book is not available."
             fi
@@ -36,12 +44,21 @@ while true; do
         2)  # Return a Book
             read -p "Enter Borrow ID: " borrow_id
             read -p "Enter Book ID: " book_id
-            return_date=$(date +%Y-%m-%d)
-            mysql -D $DB_NAME -e \
-            "UPDATE Borrow_Log SET return_date='$return_date' WHERE borrow_id=$borrow_id;"
-            mysql -D $DB_NAME -e \
-            "UPDATE Books SET availability=TRUE WHERE book_id=$book_id;"
-            echo "Book returned successfully!"
+            read -p "Enter Return Date (YYYY-MM-DD) or press Enter to use today's date: " return_date
+            # If no return date is entered, use today's date
+            if [ -z "$return_date" ]; then
+                return_date=$(date +%Y-%m-%d)
+            fi
+            # Validate the return date format (optional, simple check for length)
+            if [[ "$return_date" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
+                mysql -D $DB_NAME -e \
+                "UPDATE Borrow_Log SET return_date='$return_date' WHERE borrow_id=$borrow_id;"
+                mysql -D $DB_NAME -e \
+                "UPDATE Books SET availability=TRUE WHERE book_id=$book_id;"
+                echo "Book returned successfully!"
+            else
+                echo "Invalid date format. Please enter the date in YYYY-MM-DD format."
+            fi
             ;;
         3)  # View Borrowed Books
             echo "List of Borrowed Books:"
@@ -73,4 +90,3 @@ while true; do
             ;;
     esac
 done
-
