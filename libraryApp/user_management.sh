@@ -8,9 +8,11 @@ validate_name() {
     fi
 }
 
+
 title_case() {
     echo "$1" | sed "s/.*/\L&/; s/^./\U&/"
 }
+
 
 validate_email() {
     if [[ "$1" =~ ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$ ]]; then
@@ -20,6 +22,7 @@ validate_email() {
     fi
 }
 
+
 validate_phone() {
     if [[ "$1" =~  ^[0-9]{11}$ ]]; then
         return 0
@@ -27,6 +30,7 @@ validate_phone() {
         return 1
     fi
 }
+
 
 input_name() {
     while true; do
@@ -38,6 +42,7 @@ input_name() {
     done
 }
 
+
 input_email() {
     while true; do
         read -p "Enter$1 Email Address: " email
@@ -48,6 +53,7 @@ input_email() {
     done
 }
 
+
 input_phone() {
     while true; do
         read -p "Enter$1 Phone Number: " phone
@@ -57,6 +63,7 @@ input_phone() {
         fi
     done
 }
+
 
 query_user_id() {
     count=$(mysql -D $DB_NAME -e \
@@ -73,6 +80,7 @@ query_user_id() {
         return 0 
     fi
 }
+
 
 add_user() {
     echo "Create a new User:"
@@ -92,6 +100,7 @@ add_user() {
     echo "User $first_name $last_name added successfully!"
 }
 
+
 remove_user() {
     read -p "ID of the user you want to remove? " id
 
@@ -104,6 +113,7 @@ remove_user() {
         echo "User with ID '$id' cannot be deleted because they do not exist."
     fi
 }
+
 
 update_user() {
     read -p "ID of the user you want to change details? " id
@@ -154,6 +164,7 @@ update_user() {
     fi
 }
 
+
 query_users() {
     echo " ______________________________ "
     echo "|      Query Users Database    | "
@@ -188,8 +199,7 @@ query_users() {
                     ;;
                 2)
                     read -p "Enter Name To Search: " name
-                    query="WHERE U.first_name LIKE '%$name%' OR U.last_name LIKE '%$name%'"
-                    ;;
+                    have_query="HAVING Full_Name LIKE '%$name%'";;
                 3)
                     read -p "Enter Email Address to Search: " email
                     query="WHERE U.email LIKE '%$email%'"
@@ -210,20 +220,25 @@ query_users() {
             ;;
     esac
 
-    sql_query="SELECT U.user_id, U.first_name, U.last_name, U.email, U.phone, \
+    sql_query="SELECT U.user_id, \
+    CONCAT(U.first_name,' ', U.last_name) AS Full_Name, \
+    U.email, U.phone, \
     COUNT(B.borrow_id) AS Num_Borrowed, \
     COALESCE(SUM(O.fine_amount), 0) AS Total_Fine \
     FROM Users U \
     LEFT JOIN Borrow_Log B ON B.user_id = U.user_id \
     LEFT JOIN Overdue_Fines O ON B.borrow_id = O.borrow_id \
     $query \
-    GROUP BY U.user_id, U.first_name, U.last_name, U.email, U.phone;"
+    GROUP BY U.user_id, U.email, U.phone \
+    $have_query;"
 
     mysql -D $DB_NAME -e "$sql_query"
     read -p "" pass
     clear
-
+    query=""
+    have_query=""
 }
+
 
 while true; do
     echo " ============================== "
