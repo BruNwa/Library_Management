@@ -111,8 +111,6 @@ Below is the database structure for the Library Management System:
           <sub><b>Zaim Anwar</b></sub>
         </a>
       </td>
-    </tr>
-    <tr>
       <td align="center">
         <a href="https://github.com/leonkam">
           <img src="https://avatars.githubusercontent.com/u/56262178?v=4" width="100px;" alt="Leonkam"/><br />
@@ -134,3 +132,4 @@ Below is the database structure for the Library Management System:
     </tr>
   </table>
 </div>
+
