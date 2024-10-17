@@ -60,7 +60,7 @@ inventory_track(){
 
 while true; do
     echo " ============================== "
-    echo -e "|      \e[34mBook Management Menu\e[0m    |"
+    echo "|      Book Management Menu    |"
     echo " ============================== "
     echo " | 1. Add a new book          | "
     echo " | 2. Update book availability| "
@@ -87,6 +87,10 @@ while true; do
         5) inventory_track
         printf '%.0s*' {1..30}
         echo;;
+        6) clear
+        echo -e "\e[45mThanks for visiting! See you next time for more great reads!\e[0m"
+        sleep 2
+        exit;;
         *) echo -e "\e[31mInvalid option. Please try again.\e[0m" ;;
     esac
 done
