@@ -90,7 +90,7 @@ To interact with the app:
 
 **Enter the app container (m3lib):**
    ```bash
-   docker exec -it appContainer m3lib ```
+   docker exec -it appContainer m3lib 
 
 ## 🗂️ Database Structure
 
