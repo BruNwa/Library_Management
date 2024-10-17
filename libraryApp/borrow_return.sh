@@ -1,4 +1,5 @@
 #!/bin/bash
+
 while true; do
     echo " ================================ "
     echo " |      Borrow & Return Menu     |"
