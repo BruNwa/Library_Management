@@ -18,7 +18,7 @@ add_book() {
     mysql -D $DB_NAME -e \
     "INSERT INTO Books (title, author, year_published, genre, isbn, availability) VALUES ('$title', '$author','$year', '$genre', '$isbn','$av');"
 
-    echo "Book '$title' added successfully!"
+    echo -e "\e[32mBook '$title' added successfully!\e[0m"
 }
 
 
@@ -35,7 +35,7 @@ update_availability() {
         "UPDATE Books SET availability=FALSE WHERE book_id=$book_id;"
     fi
 
-    echo "Availability for book ID '$book_id' updated to '$availability'."
+    echo -e "\e[32mAvailability for book ID '$book_id' updated to '$availability'.\e[0m"
 }
 
 delete_books(){
@@ -43,6 +43,7 @@ delete_books(){
     read book_id
     mysql -D $DB_NAME -e \
     "delete from Books where book_id=$book_id;"
+    echo -e "\e[32mThe book $book_id is deleted.\e[0m"
 
 }
 
@@ -59,7 +60,7 @@ inventory_track(){
 
 while true; do
     echo " ============================== "
-    echo "|      Book Management Menu    |"
+    echo -e "|      \e[34mBook Management Menu\e[0m    |"
     echo " ============================== "
     echo " | 1. Add a new book          | "
     echo " | 2. Update book availability| "
@@ -71,12 +72,21 @@ while true; do
     read -p "Choose an option: " choice
 
     case $choice in
-        1) add_book;;
-        2) update_availability;;
-        3) delete_books;;
-        4) show_books;;
-        5) inventory_track;;
-        6) exit 0 ;;
-        *) echo "Invalid option. Please try again." ;;
+        1) add_book
+        printf '%.0s*' {1..40}
+        echo;;
+        2) update_availability
+        printf '%.0s*' {1..50}
+        echo;;
+        3) delete_books
+        printf '%.0s*' {1..40}
+        echo;;
+        4) show_books
+        printf '%.0s*' {1..100}
+        echo;;
+        5) inventory_track
+        printf '%.0s*' {1..30}
+        echo;;
+        *) echo -e "\e[31mInvalid option. Please try again.\e[0m" ;;
     esac
 done
