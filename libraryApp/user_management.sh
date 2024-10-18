@@ -235,8 +235,8 @@ query_users() {
     mysql -D $DB_NAME -e "$sql_query"
     read -p "" pass
     clear
-    query=""
-    have_query=""
+    unset query
+    unset have_query
 }
 
 
